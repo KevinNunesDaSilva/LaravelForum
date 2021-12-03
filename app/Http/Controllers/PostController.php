@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
-class HomepageController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class HomepageController extends Controller
     {
         $posts = DB::select('select * from posts');
 
-        return view('homepage', ['posts' => $posts]);
+        return view('posts/posts', ['posts' => $posts]);
     }
 
     /**
@@ -26,7 +26,7 @@ class HomepageController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts/create-post');
     }
 
     /**
@@ -48,7 +48,8 @@ class HomepageController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = DB::table('posts')->where('id', $id)->get();
+        return view('posts/post-detail')->with('post', $post);
     }
 
     /**

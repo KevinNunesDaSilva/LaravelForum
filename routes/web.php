@@ -14,13 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('homepage');
+    return view('welcome');
 });
 
-Route::resource('homepage', 'HomepageController');
+Route::resource('homepage', '\App\Http\Controllers\HomepageController');
+Route::resource('post', '\App\Http\Controllers\PostController');
+Route::get('post/{id}', [PostController::class, 'show']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/', function () {
+    return view('welcome');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
