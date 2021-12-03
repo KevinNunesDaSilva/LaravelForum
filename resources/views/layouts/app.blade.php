@@ -18,28 +18,50 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body>
-        @if (Route::has('login'))
-        <div class="py-5">
-            <a class="btn btn-dark" href="{{ url()->previous() }}">Back</a>
+        <div class="d-none">
+                {{$user = auth()->user();}}
+        </div>
+        {{-- @if (Route::has('login'))
+            <div class="py-5">
+                <a class="btn btn-dark" href="{{ url()->previous() }}">Back</a>
+                @auth
+                {{dd(Request::is('profile/'$user->id))}}
+                @if (Request::is('profile/*'))
+                    <a href="{{ action('App\Http\Controllers\UserController@show', $user->id)}}" class="">Profile</a>
+                @endif
+                @else
+                    <a href="{{ route('login') }}" class="">Log in</a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="">Register</a>
+                    @endif
+                @endauth
+            </div>
+        @endif --}}
+        <div class="py-3 row text-center">
             @auth
             <div class="d-none">
-                @if (Auth::check())
-                    {{$user = auth()->user();}}
-                @endif
-            </div>            
-                <a href="{{ action('App\Http\Controllers\UserController@show', $user->id)}}" class="">Profile</a>
+                {{$user = auth()->user();}}
+            </div>
+            <div class="col-md-2">
+                <a  href="{{ action('App\Http\Controllers\HomepageController@index')}}">
+                <img src="//via.placeholder.com/80x50" alt="" class="d-block mx-auto">
+                </a>
+            </div>
+            @if (Request::is('user/*'))
+            <div class="offset-md-8 col-md-2"><a href="{{ route('logout') }}">Logout</a></div>
+                @else
+                <div class="offset-md-6 col-md-2"><a href="{{ action('App\Http\Controllers\UserController@show', $user->id)}}">Profile</a></div>
+                <div class="col-md-2"><a href="{{ route('logout') }}">Logout</a></div>
+            @endif
             @else
-                <a href="{{ route('login') }}" class="">Log in</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="">Register</a>
-                @endif
+                <div class="offset-md-8 col-md-2"><a href="{{ route('register') }}">Register</a></div>
+                <div class="col-md-2"><a href="{{ route('login') }}">login</a></div>
             @endauth
         </div>
-    @endif
-            <!-- Page Content -->
+        <!-- Page Content -->
         <div class="container">
-                @yield('content')
+            @yield('content')
         </div>
     </body>
 </html>

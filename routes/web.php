@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomepageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::resource('homepage', '\App\Http\Controllers\HomepageController');
 Route::resource('post', '\App\Http\Controllers\PostController');
 Route::resource('user', '\App\Http\Controllers\UserController');
@@ -26,5 +22,13 @@ Route::get('profile/{id}', [UserController::class, 'show']);
 Route::get('/', function () {
     return view('welcome');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('logout', function ()
+{
+    auth()->logout();
+    Session()->flush();
+
+    return Redirect()->action([HomepageController::class, 'index']);
+})->name('logout');
 
 require __DIR__.'/auth.php';
