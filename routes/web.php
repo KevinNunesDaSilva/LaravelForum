@@ -19,7 +19,9 @@ Route::get('/', function () {
 
 Route::resource('homepage', '\App\Http\Controllers\HomepageController');
 Route::resource('post', '\App\Http\Controllers\PostController');
+Route::resource('user', '\App\Http\Controllers\UserController');
 Route::get('post/{id}', [PostController::class, 'show']);
+Route::get('profile/{id}', [UserController::class, 'show']);
 
 Route::get('/', function () {
     return view('welcome');
