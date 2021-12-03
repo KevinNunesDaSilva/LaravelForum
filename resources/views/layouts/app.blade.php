@@ -22,7 +22,12 @@
         <div class="py-5">
             <a class="btn btn-dark" href="{{ url()->previous() }}">Back</a>
             @auth
-                <a href="{{ url('/homepage') }}" class="">home</a>
+            <div class="d-none">
+                @if (Auth::check())
+                    {{$user = auth()->user();}}
+                @endif
+            </div>            
+                <a href="{{ action('App\Http\Controllers\UserController@show', $user->id)}}" class="">Profile</a>
             @else
                 <a href="{{ route('login') }}" class="">Log in</a>
 

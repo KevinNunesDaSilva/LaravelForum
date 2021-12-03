@@ -19,4 +19,8 @@ class PostFactory extends Factory
             'user_id' => $this->faker->numberBetween($min = 1, $max = 10)
         ];
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
