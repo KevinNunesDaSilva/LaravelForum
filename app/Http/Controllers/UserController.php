@@ -48,7 +48,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $posts = db::table('posts')->where('user_id', $id)->get();
-        return view('users/profile')->with('posts', 'user', $posts,  $user);
+        return view('users/profile')->with('posts', $posts)->with('user', $user);
     }
 
     /**
