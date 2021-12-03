@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('homepage', '\App\Http\Controllers\HomepageController');
+Route::resource('post', '\App\Http\Controllers\PostController');
+Route::get('post/{id}', [PostController::class, 'show']);
+
+Route::get('/', function () {
+    return view('welcome');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
