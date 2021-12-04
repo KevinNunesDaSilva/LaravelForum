@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 use DB;
+use Auth;
 
 class PostController extends Controller
 {
@@ -14,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::select('select * from posts');
+        $posts = DB::select('select * from posts ORDER BY id DESC');
 
         return view('posts/posts', ['posts' => $posts]);
     }
@@ -37,7 +39,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = Auth::user()->id;
+        $request->validate([
+            'title' =>       ['required', 'string', 'max:255'],
+            'post_text' =>      ['required', 'string', 'max:255']
+        ]);
+        
+        $post = new Post();
+        $post->title = $request['title'];
+        $post->post_text = $request['post_text'];
+        $post->user_id = $user_id;
+        $post->save();
+        return redirect('homepage');
     }
 
     /**
