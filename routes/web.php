@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomepageController;
+use App\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +17,10 @@ use App\Http\Controllers\HomepageController;
 Route::resource('homepage', '\App\Http\Controllers\HomepageController');
 Route::resource('post', '\App\Http\Controllers\PostController');
 Route::resource('user', '\App\Http\Controllers\UserController');
-Route::get('post/{id}', [PostController::class, 'show']);
-Route::get('profile/{id}', [UserController::class, 'show']);
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth'])->name('');
 
 Route::get('logout', function ()
 {
