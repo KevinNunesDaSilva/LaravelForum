@@ -38,25 +38,25 @@
                 @endauth
             </div>
         @endif --}}
-        <div class="py-3 w-100 row text-center">
-            @auth
-            <div class="d-none">
-                {{$user = auth()->user();}}
-            </div>
+        <div class="container py-3 w-100 row text-center mx-auto">
             <div class="col-md-2">
                 <a href="{{ action('App\Http\Controllers\HomepageController@index')}}">
                 <img src="//via.placeholder.com/80x50" alt="" class="d-block mx-auto">
                 </a>
-                <a href="{{ action('App\Http\Controllers\PostController@create')}}">Create post</a>
+            </div>
+            @auth
+            <div class="d-none">
+                {{$user = auth()->user();}}
             </div>
             @if (Request::is('user/*'))
             <div class="offset-md-8 col-md-2"><a href="{{ route('logout') }}">Logout</a></div>
                 @else
-                <div class="offset-md-6 col-md-2"><a href="{{ action('App\Http\Controllers\UserController@show', $user->id)}}">Profile</a></div>
+                <div class="offset-md-4 col-md-2"><a href="{{ action('App\Http\Controllers\UserController@show', $user->id)}}">Profile</a></div>
+                <div class="col-md-2"><a href="{{ action('App\Http\Controllers\PostController@create')}}">Create post</a></div>
                 <div class="col-md-2"><a href="{{ route('logout') }}">Logout</a></div>
             @endif
             @else
-                <div class="offset-md-8 col-md-2"><a href="{{ route('register') }}">Register</a></div>
+                <div class="offset-md-6 col-md-2"><a href="{{ route('register') }}">Register</a></div>
                 <div class="col-md-2"><a href="{{ route('login') }}">login</a></div>
             @endauth
         </div>
