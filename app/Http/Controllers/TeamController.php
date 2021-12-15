@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
+use DB;
+use Auth;
+
 class TeamController extends Controller
 {
     /**
@@ -14,7 +17,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = DB::select('select * from teams');
+        $teams = DB::select('select * from teams ORDER BY id DESC');
 
         return view('teams/teams-list', ['teams' => $teams]);
     }
@@ -26,7 +29,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+        return view('teams/teams-create');
     }
 
     /**
@@ -37,7 +40,19 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = Auth::user()->id;
+        $request->validate([
+            'team_name' =>       ['required', 'string', 'max:255'],
+            'team_tier' =>      ['required', 'string', 'max:255']
+        ]);
+        
+        dd($request);
+        $team = new Team();
+        $team->team_name = $request['team_name'];
+        $team->team_tier = $request['team_tier'];
+        $team->user_id = $user_id;
+        $team->save();
+        return redirect('homepage');
     }
 
     /**

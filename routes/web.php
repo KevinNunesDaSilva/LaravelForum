@@ -14,14 +14,16 @@ use App\Post;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [HomepageController::class, 'index']);
 Route::resource('homepage', '\App\Http\Controllers\HomepageController');
 Route::resource('post', '\App\Http\Controllers\PostController');
 Route::resource('user', '\App\Http\Controllers\UserController');
+Route::resource('team', '\App\Http\Controllers\TeamController');
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['auth'])->name('');
-
+// Route::get('/', function () {
+//     return view('homepage');
+// });
+Route::get('create_team', '\App\Http\Controllers\TeamController@create')->middleware('auth');
 Route::get('logout', function ()
 {
     auth()->logout();
