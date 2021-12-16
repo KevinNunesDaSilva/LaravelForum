@@ -16,7 +16,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->bothify($string = '## ??'),
             'post_text' => $this->faker->text(),
-            'user_id' => $this->faker->numberBetween($min = 11, $max = 11)
+            'user_id' => $this->faker->numberBetween($min = 1, $max = 50)
         ];
     }
     public function user()

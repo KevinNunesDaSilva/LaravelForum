@@ -2,7 +2,3 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
-body{
-    padding-top: 50px;
-}

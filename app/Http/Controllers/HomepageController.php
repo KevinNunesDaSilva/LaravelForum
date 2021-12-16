@@ -14,8 +14,15 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        $posts = DB::select('select * from posts ORDER BY id DESC');
+        $posts = DB::select('SELECT posts.id, posts.title, posts.post_text, posts.created_at, users.name, teams.team_name, teams.team_tier
+        FROM posts
+        INNER JOIN users
+        ON posts.user_id=users.id
+        INNER JOIN teams
+        ON users.id=teams.owner_id
+        ');
 
+        
         return view('homepage', ['posts' => $posts]);
     }
 
